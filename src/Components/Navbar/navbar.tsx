@@ -10,7 +10,6 @@ import { actionsCreators } from "../../State/index";
 import { UploadButton } from './Upload/upload';
 import SignupFrom from '../Signup/signup';
 import SignInFrom from '../Signin/signin';
-import { Typography } from '@mui/material';
 
 
 export default function Navbar() {

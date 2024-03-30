@@ -1,4 +1,4 @@
-import { Container, LikeBtn, SubContainer } from "./style";
+import { Container, ImageContainer, LikeBtn, SubContainer, Video } from "./style";
 import { useEffect, useRef, useState } from "react";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -83,19 +83,19 @@ export default function Card() {
             { 
                 
                 (data[current].type==="image") ? 
-                <div  ref={postMediaRef} style={{ height: maxImagesHeight,margin:"0px 3px" }}>
+                <ImageContainer  ref={postMediaRef} style={{ height: maxImagesHeight,margin:"0px 3px" }}>
                     <img src={process.env.PUBLIC_URL+ data[current].src} alt="media" style={{height: "inherit"}}/>
-                </div>
+                </ImageContainer>
                 : 
-                <video  ref={videoRef} style={{ height: maxImagesHeight,margin:"0px 2px" }} autoPlay>
+                <Video  ref={videoRef} style={{ height: maxImagesHeight,margin:"0px 2px" }} autoPlay>
                     <source src={process.env.PUBLIC_URL+data[current].src} type="video/mp4" style={{height: "inherit"}}/>
-                </video>   
+                </Video>   
                 
             }
             {valid&&<ArrowForwardIosIcon onClick={() => setCurrent((current + 1) % data.length) }/>}
         </SubContainer>
-        <LikeBtn clicked={clicked} onClick={handelLike}>Like</LikeBtn>
     </Container>
+        <LikeBtn clicked={clicked} onClick={handelLike}>Like</LikeBtn>
     </>
     )
 }

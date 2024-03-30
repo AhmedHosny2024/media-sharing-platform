@@ -53,15 +53,16 @@ export const SignUp= styled(Button)(() => ({
 }));
 
 export const UserName = styled("div")(() => ({
-    width: 65,
-    height: 65,
+    // width: 65,
+    // height: 65,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
     color:"white",
     fontWeight:500,
-    fontSize:20
+    fontSize:20,
+    margin: "0px 10px",
 }));
 export const UserData = styled("div")(() => ({
     display: "flex",
@@ -72,7 +73,7 @@ export const UserData = styled("div")(() => ({
     color:"white",
 }));
 
-export const Name = styled("div")(() => ({
+export const Name = styled("div")(({theme}) => ({
     display: "flex",
     justifyContent: "left",
     alignItems: "center",
@@ -80,7 +81,10 @@ export const Name = styled("div")(() => ({
     flexDirection:"row",
     color:"white",
     fontWeight:500,
-    fontSize:30
+    fontSize:30,
+    [theme.breakpoints.down('sm')]: {
+        display:"none"
+    },
 }));
 
 export const SubHeader = styled("div")(() => ({
