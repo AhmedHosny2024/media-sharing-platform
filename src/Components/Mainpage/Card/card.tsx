@@ -92,7 +92,6 @@ export default function Card() {
                 </video>   
                 
             }
-            {/* {current} */}
             {valid&&<ArrowForwardIosIcon onClick={() => setCurrent((current + 1) % data.length) }/>}
         </SubContainer>
         <LikeBtn clicked={clicked} onClick={handelLike}>Like</LikeBtn>
