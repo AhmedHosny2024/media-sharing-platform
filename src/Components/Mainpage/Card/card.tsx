@@ -1,4 +1,4 @@
-import { Container, ImageContainer, LikeBtn, SubContainer, Video } from "./style";
+import { CardContainer, Container, ImageContainer, LikeBtn, SubContainer, Video } from "./style";
 import { useEffect, useRef, useState } from "react";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -6,11 +6,13 @@ import Auther from "./Auther/auther";
 import { Post } from "../../types";
 import { useSelector } from "react-redux";
 import { MainState } from "../../../State";
+import { set } from "date-fns";
 
 export default function Card(props:Post) {
     const [current, setCurrent] = useState(0);
-    const [maxImagesHeight, setMaxImagesHeight] = useState(350);
     const [clicked, setClicked] = useState(props.like);
+    const [maxImagesHeight, setMaxImagesHeight] = useState(350);
+    const [maxImageWidth, setMaxImagesWidth] = useState(350);
     const postMediaRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const {data} = props;
@@ -33,6 +35,14 @@ export default function Card(props:Post) {
                     }
                     return maxValue;
                     });
+                    setMaxImagesWidth((maxImagesWidth) => {
+                    const maxValue = Math.min(maxImagesWidth, img.width);
+                    const postWidth = postMediaRef?.current?.offsetWidth || 0;
+                    if (maxImagesWidth > img.width && img.width > postWidth) {
+                        return img.width * (postWidth / img.width);
+                    }
+                    return maxValue;
+                    });
             };
           }
           else {
@@ -45,6 +55,15 @@ export default function Card(props:Post) {
 
                 if (maxImagesHeight > video.videoHeight && video.videoWidth > postWidth) {
                   return video.videoHeight * (postWidth / video.videoWidth);
+                }
+                return maxValue;
+              });
+              setMaxImagesWidth((maxImagesWidth) => {
+                const maxValue = Math.min(maxImagesWidth, video.videoWidth);
+                const postWidth = postMediaRef?.current?.offsetWidth || 0;
+
+                if (maxImagesWidth > video.videoWidth && video.videoWidth > postWidth) {
+                  return video.videoWidth * (postWidth / video.videoWidth);
                 }
                 return maxValue;
               });
@@ -65,7 +84,8 @@ export default function Card(props:Post) {
         // });
 
     }
-    return (<>
+    return (
+    <CardContainer>
     <Auther key={props.id} userName={props.userName} createdAt={props.createdAt} />
     <Container>
         <SubContainer>  
@@ -73,11 +93,11 @@ export default function Card(props:Post) {
             { 
                 
                 (data[current].type==="image") ? 
-                <ImageContainer  ref={postMediaRef} style={{ height: maxImagesHeight,margin:"0px 3px" }}>
+                <ImageContainer  ref={postMediaRef} style={{ height: maxImagesHeight,margin:"0px 3px" ,width:maxImageWidth }}>
                     <img src={process.env.PUBLIC_URL+ data[current].src} alt="media" style={{height: "inherit"}}/>
                 </ImageContainer>
                 : 
-                <Video  ref={videoRef} style={{ height: maxImagesHeight,margin:"0px 2px" }} autoPlay>
+                <Video  ref={videoRef} style={{ height: maxImagesHeight,margin:"0px 2px" , width:maxImageWidth}} autoPlay>
                     <source src={process.env.PUBLIC_URL+data[current].src} type="video/mp4" style={{height: "inherit"}}/>
                 </Video>   
                 
@@ -86,6 +106,6 @@ export default function Card(props:Post) {
         </SubContainer>
     </Container>
     {logedIn&&<LikeBtn clicked={clicked} onClick={handelLike}>Like</LikeBtn>}
-    </>
+    </CardContainer>
     )
 }

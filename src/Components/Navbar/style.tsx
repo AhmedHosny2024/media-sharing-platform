@@ -12,6 +12,7 @@ export const Header = styled("div")(() => ({
     background: "linear-gradient(10.15deg, #ff2c00 -6.51%, #9000c3 120.19%)",
     justifyContent: "space-between",
     boxSizing: "border-box",
+    margin: "0px 0px 20px 0px",
 }));
 export const Icon = styled("div")(() => ({
     width: 65,

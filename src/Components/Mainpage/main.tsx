@@ -23,7 +23,7 @@ export default function Mainpage() {
         } as PostType,
         {
             type: "image",
-            src: "0.jpg"
+            src: "test.jpg"
         } as PostType,
         {
             type: "video",
@@ -31,7 +31,7 @@ export default function Mainpage() {
         } as PostType,
         {
             type: "image",
-            src: "Xray.jpg"
+            src: "test.jpg"
         } as PostType,
     ];
     const tempdata:Post[] =[

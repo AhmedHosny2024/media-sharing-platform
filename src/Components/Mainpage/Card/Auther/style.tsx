@@ -5,7 +5,7 @@ export const Container = styled("div")(() => ({
     boxSizing: "border-box",
     flexDirection:"row",
     justifyContent: "flex-start",
-    margin: "10px 10px",    
+    margin: "2px 10px",    
     width: "-webkit-fill-available",
 
 }));

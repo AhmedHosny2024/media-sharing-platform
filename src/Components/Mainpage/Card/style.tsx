@@ -67,3 +67,14 @@ export const Container = styled("div")(({theme}) => ({
         width:"fit-content",
     },
 }));
+
+export const CardContainer = styled("div")(({theme}) => ({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems:"flex-start",
+    width: "100%",
+    [theme.breakpoints.down('sm')]: {
+        width: "100%",
+    },
+}));
