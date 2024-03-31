@@ -12,6 +12,8 @@ import SignupFrom from '../Signup/signup';
 import SignInFrom from '../Signin/signin';
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from '../../Server/Instance';
+import { IconButton } from '@mui/material';
+import { log } from 'console';
 
 export default function Navbar() {
     const token =useSelector((state:MainState) => state.token); 
@@ -19,20 +21,31 @@ export default function Navbar() {
 
     const dispatch = useDispatch();
     const { ChangeToken,ChangeUserName } = bindActionCreators(actionsCreators,dispatch);
-    ChangeToken("Abdelrazik")
-    ChangeUserName("Abdelrazik Abdelrazik")
-
-    console.log(token)
-
+    
+    const[login,setLogin]=React.useState(false)
     const GoToTop = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
+
+
+    //TODO just for testing
+    useEffect(() => {
+        ChangeToken("Abdelrazik")
+        ChangeUserName("Abdelrazik Abdelrazik")
+    }, [])
+
     useEffect(() => {
         GoToTop()
+        setLogin(true);
+    }, [token,userName,login])
 
-    }, [token])
     const SignOut = () => {
         ChangeToken("")
+        ChangeUserName("")
+        setLogin(false);
+        console.log("Sign out")
+        console.log(token)
+        console.log(userName)
         //TODO: Add the API call to sign out
         // axios.post("/signout").then((res) => {
         //     console.log(res);
@@ -68,7 +81,9 @@ export default function Navbar() {
                 <UserName>
                     {userName}
                 </UserName>
-                <LogoutIcon sx={{color:"white"}} onClick={SignOut}/>
+                <IconButton onClick={SignOut}>
+                    <LogoutIcon sx={{color:"white"}} />
+                </IconButton>
             </UserData>
             }
             

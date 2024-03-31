@@ -13,7 +13,7 @@ export const VisuallyHiddenInput = styled('input')({
     backgroundColor: 'transparent',
   });
 
-export const Upload = styled(Button)(() => ({
+export const Upload = styled(Button)(({theme}) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -30,4 +30,12 @@ export const Upload = styled(Button)(() => ({
         color: "white",
     },
     boxShadow: "0px 0px 5px 0px #0000000a",
+    [theme.breakpoints.down("sm")]: {
+        justifyContent:"end",
+    },
+}));
+export const Text = styled("div")(({theme}) => ({
+    [theme.breakpoints.down("sm")]: {
+        display: "none",
+    },
 }));

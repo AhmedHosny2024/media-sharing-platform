@@ -26,7 +26,8 @@ export const SubmitButton = styled(Button)(() => ({
 export const Header =styled(Box)(() => ({
   display:"flex" , 
   alignItems:"center",
-  my:8,
+  justifyContent:"center",
+  my:10,
   color:"#c9175f",
 }));
 

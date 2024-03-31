@@ -1,6 +1,6 @@
 import { ButtonProps } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Upload, VisuallyHiddenInput } from "./style";
+import { Text, Upload, VisuallyHiddenInput } from "./style";
 import { VariantType, useSnackbar } from 'notistack';
 import { PostType } from "../../types";
 import axios from '../../../Server/Instance';
@@ -63,7 +63,9 @@ export function UploadButton() {
         tabIndex={-1}
         startIcon={<CloudUploadIcon />}
         >
-        Upload
+          <Text>
+            Upload
+          </Text>
         <VisuallyHiddenInput type="file" hidden accept="image/*,video/*" onChange={GetImage} multiple/>
     </UploadBtn>
   );

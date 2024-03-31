@@ -10,36 +10,36 @@ export default function Mainpage() {
         {
             type: "video",
             src: "test.mkv"
-        } as PostType,
+        },
         {
             type: "image",
             src: "0.jpg"
-        } as PostType,
+        } ,
     ];
     const posttype2:PostType[]=[
         {
             type: "video",
             src: "test.mkv"
-        } as PostType,
+        } ,
         {
             type: "image",
             src: "test.jpg"
-        } as PostType,
+        },
         {
             type: "video",
             src: "test2.mkv"
-        } as PostType,
+        },
         {
             type: "image",
             src: "test.jpg"
-        } as PostType,
+        } ,
     ];
     const tempdata:Post[] =[
         {
             id:1,
             userName: "user1",
             createdAt: "2021-09-01",
-            like: false,
+            like: true,
             data:posttype1,
         },
         {

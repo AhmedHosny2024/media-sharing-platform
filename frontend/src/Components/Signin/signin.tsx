@@ -85,7 +85,7 @@ export default function SignInFrom() {
                     noWrap
                     component="a"
                     sx={{
-                    mr: 2,
+                    m: 2,
                     display: { xs: 'none', md: 'flex' },
                     fontFamily: 'monospace',
                     fontWeight: 700,
@@ -93,10 +93,10 @@ export default function SignInFrom() {
                     textDecoration: 'none',
                     }}
                     >
-                        Media Sharing
+                        Media Sharing 
                     </Typography>
                 </Header>
-                <SecondContainer sx={{margin:2}}>
+                <SecondContainer sx={{m:"8px 8px 8px 0px"}}>
                     <InputBoxContainer  variant="standard" color="secondary">
                         <InputLabel htmlFor="User Name">Email</InputLabel>
                         <Input
@@ -110,8 +110,8 @@ export default function SignInFrom() {
                     </InputBoxContainer>
                 </SecondContainer>
 
-                <SecondContainer >
-                    <FormControl sx={{ m: 1, width: '25ch' }} color="secondary" variant="standard">
+                <SecondContainer sx={{m:"8px 8px 8px 0px"}}>
+                    <FormControl sx={{  width: '25ch' }} color="secondary" variant="standard">
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"
@@ -135,7 +135,7 @@ export default function SignInFrom() {
                     </FormControl>
                 </SecondContainer>
             
-            <Box sx={{display:'flex', justifyContent:'space-evenly',my:1}}>
+            <Box sx={{display:'flex', justifyContent:'space-evenly',my:2}}>
                 <SubmitBtn variant="contained" sx={{m:1}} onClick={handleSubmit} disabled={loading}>Submit</SubmitBtn>
             </Box>
 

@@ -110,7 +110,7 @@ export default function SignupFrom() {
                     noWrap
                     component="a"
                     sx={{
-                    mr: 2,
+                    m: 2,
                     display: { xs: 'none', md: 'flex' },
                     fontFamily: 'monospace',
                     fontWeight: 700,
@@ -121,8 +121,8 @@ export default function SignupFrom() {
                         Media Sharing
                     </Typography>
                 </Header>
-                <Container sx={{display:"flex" , alignItems:"center",justifyContent:'space-evenly',width: 500,my:1}}>
-                    <SecondContainer>
+                <Container sx={{display:"flex" , alignItems:"center",justifyContent:'space-evenly',width: 500}}>
+                    <SecondContainer sx={{m:2}}>
                         <InputBoxContainer  variant="standard" color="secondary">
                             <InputLabel htmlFor="User Name">Email</InputLabel>
                             <Input
@@ -137,7 +137,7 @@ export default function SignupFrom() {
                     </SecondContainer>
 
                     <SecondContainer>
-                        <FormControl sx={{ m: 1, width: '25ch' }} color="secondary" variant="standard">
+                        <FormControl sx={{ m: 0, width: '25ch' }} color="secondary" variant="standard">
                             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                             <Input
                                 id="standard-adornment-password"
@@ -161,9 +161,9 @@ export default function SignupFrom() {
                         </FormControl>
                     </SecondContainer>
                 </Container>
-                <Container sx={{display:"flex" , alignItems:"center",justifyContent:'space-evenly',width: 500,my:1}}>
-                    <SecondContainer>
-                        <FormControl sx={{ m: 1, width: '25ch' }} color="secondary" variant="standard">
+                <Container sx={{display:"flex" , alignItems:"center",justifyContent:'space-evenly',width: 500}}>
+                    <SecondContainer sx={{m:2}}>
+                        <FormControl sx={{ m: 0, width: '25ch' }} color="secondary" variant="standard">
                             <InputLabel htmlFor="User Name">User Name</InputLabel>
                             <Input
                                 id="User Name"
@@ -177,7 +177,7 @@ export default function SignupFrom() {
                     </SecondContainer>
 
                     <SecondContainer >
-                        <FormControl sx={{ m: 1, width: '25ch' }} color="secondary" variant="standard">
+                        <FormControl sx={{ m: 0, width: '25ch' }} color="secondary" variant="standard">
                             <InputLabel htmlFor="User Name">Phone</InputLabel>
                             <Input
                                 id="Phone"
