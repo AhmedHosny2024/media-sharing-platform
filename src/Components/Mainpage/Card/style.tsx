@@ -6,8 +6,8 @@ export const SubContainer = styled("div")(({theme}) => ({
     boxSizing: "border-box",
     flexDirection:"row",
     alignItems: "center",
-    flexWrap: "wrap",
     [theme.breakpoints.down('sm')]: {
+        flexWrap: "wrap",
         display: 'flex',
         flexDirection: 'column',
         width:"auto",

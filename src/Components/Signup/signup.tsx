@@ -4,6 +4,10 @@ import { Container, Header, InputBoxContainer, SecondContainer, Style, SubmitBtn
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Modal, Typography } from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import axios from '../../Server/Instance';
+import { useDispatch } from "react-redux";
+import {bindActionCreators} from 'redux';
+import { actionsCreators } from "../../State/index";
 
 export default function SignupFrom() {
     const [email, setEmail] = useState("");
@@ -11,6 +15,9 @@ export default function SignupFrom() {
     const [userName, setUserName] = useState("");
     const [phone, setPhone] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const dispatch = useDispatch();
+    const { ChangeToken,ChangeUserName } = bindActionCreators(actionsCreators,dispatch);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -48,10 +55,25 @@ export default function SignupFrom() {
         }
         try {
             setLoading(true);
-            setTimeout(() => {
-            }, 2000);
-            return;
-        } catch {
+            // TODO: Add the API call to create a new user
+            // axios.post("/user/signup",{
+            //     email: email,
+            //     password: password,
+            //     userName: userName,
+            //     phone: phone
+            // }).then((res) => {
+            //     if(res.status === 200){
+            //         // save the token in redux
+            //         ChangeToken(res.data.token);
+            //         ChangeUserName(res.data.userName);
+            //         Alert("Account created successfully","success");
+            //         handleClose();
+            //     }
+            // }).catch((err) => {
+            //     Alert("Failed to create an account","error");
+            // });
+        }
+        catch (e) {
             Alert("Failed to create an account","error");
         }
         setLoading(false);

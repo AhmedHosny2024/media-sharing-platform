@@ -39,3 +39,11 @@
     transform: rotate(360deg);
   }
 }
+
+.footer {
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  height: 50px;
+}

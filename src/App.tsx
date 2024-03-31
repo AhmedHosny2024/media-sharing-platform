@@ -11,6 +11,7 @@ function App() {
         <React.Fragment>
           <Navbar />
           <Mainpage />
+          <footer className="footer"/>
         </React.Fragment>
       </SnackbarProvider>
       

@@ -1,13 +1,14 @@
+import { PostHeader } from "../../../types";
 import { PostDate,UserIcon, UserInfo, UserName ,Container} from "./style";
 
-export default function Auther() {
+export default function Auther(props:PostHeader) {
     return (
         <Container>
             <UserInfo>
-                <UserIcon alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                <UserName>John Doe</UserName>
+                <UserIcon alt={props.userName} />
+                <UserName>{props.userName}</UserName>
             </UserInfo>
-            <PostDate>Posted on 12/12/2021</PostDate>
+            <PostDate>Posted on {props.createdAt}</PostDate>
         </Container>
     )
 }

@@ -4,6 +4,10 @@ import { Container, Header, InputBoxContainer, SecondContainer, Style, SubmitBtn
 import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Modal, Typography } from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import axios from '../../Server/Instance';
+import { useDispatch } from "react-redux";
+import {bindActionCreators} from 'redux';
+import { actionsCreators } from "../../State/index";
 
 export default function SignInFrom() {
     const [email, setEmail] = useState("");
@@ -17,6 +21,9 @@ export default function SignInFrom() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const dispatch = useDispatch();
+    const { ChangeToken,ChangeUserName } = bindActionCreators(actionsCreators,dispatch);
 
     const { enqueueSnackbar } = useSnackbar();
     const Alert = (msg:string,variant: VariantType) => () => {
@@ -36,7 +43,19 @@ export default function SignInFrom() {
         }
         try {
             setLoading(true);
-            return;
+            // TODO: Add the API call to sign in the user
+            // axios.post("/user/signin",{
+            //     email: email,
+            //     password: password
+            // }).then((res) => {
+            //     ChangeToken(res.data.token);
+            //     ChangeUserName(res.data.username);
+            //     Alert("Login Success","success");
+            //     handleClose();
+            // }).catch((err) => {
+            //     Alert("Check Email or password  ","error");
+            // });
+    
         } catch {
             Alert("Check Email or password  ","error");
         }

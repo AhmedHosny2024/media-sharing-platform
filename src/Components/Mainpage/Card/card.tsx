@@ -3,80 +3,70 @@ import { useEffect, useRef, useState } from "react";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Auther from "./Auther/auther";
+import { Post } from "../../types";
+import { useSelector } from "react-redux";
+import { MainState } from "../../../State";
 
-export default function Card() {
+export default function Card(props:Post) {
     const [current, setCurrent] = useState(0);
     const [maxImagesHeight, setMaxImagesHeight] = useState(350);
-    const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState(props.like);
     const postMediaRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const data:any[] =[
-        {
-            type: "vedio",
-            src: "test.mkv"
-        },
-        {
-            type: "image",
-            src: "0.jpg"
-        },
-        
-        
-        {
-            type: "vedio",
-            src: "test2.mkv"
-        },
-        {
-            type: "image",
-            src: "Xray.jpg"
-        },
-    ];
-    
-    const valid =data?.length>1;
+    const {data} = props;
+    const valid =data.length>1;
 
+    const token =useSelector((state:MainState) => state.token); 
+    const logedIn = token!=="";
+    
     useEffect(() => {
         data?.forEach((image) => {
             if (image.type === "image") {
-            const img = new Image();
-            img.src = image.src;
-            img.onload = () => {
-                setMaxImagesHeight((maxImagesHeight) => {
-                const maxValue = Math.min(maxImagesHeight, img.height);
-                const postWidth = postMediaRef?.current?.offsetWidth || 0;
-                if (maxImagesHeight > img.height && img.width > postWidth) {
-                    console.log(img.height * (postWidth / img.width));
-                    return img.height * (postWidth / img.width);
-                }
-                    console.log(maxValue);
-                return maxValue;
-                });
+                const img = new Image();
+                img.src = image.src;
+                img.onload = () => {
+                    setMaxImagesHeight((maxImagesHeight) => {
+                    const maxValue = Math.min(maxImagesHeight, img.height);
+                    const postWidth = postMediaRef?.current?.offsetWidth || 0;
+                    if (maxImagesHeight > img.height && img.width > postWidth) {
+                        return img.height * (postWidth / img.width);
+                    }
+                    return maxValue;
+                    });
             };
           }
           else {
             const video = document.createElement("video");
-            video.src = image;
+            video.src = image.src;
             video.onloadedmetadata = () => {
               setMaxImagesHeight((maxImagesHeight) => {
                 const maxValue = Math.min(maxImagesHeight, video.videoHeight);
                 const postWidth = postMediaRef?.current?.offsetWidth || 0;
 
                 if (maxImagesHeight > video.videoHeight && video.videoWidth > postWidth) {
-                    console.log(video.videoHeight * (postWidth / video.videoWidth));
                   return video.videoHeight * (postWidth / video.videoWidth);
                 }
-                console.log(maxValue);
                 return maxValue;
               });
             };
           }
         });
-        console.log(maxImagesHeight);
       }, [data]);
 
     const handelLike = () => {
         setClicked(!clicked);
+        //TODO: Add the API call to like the post
+        // axios.patch("/like",{
+        //     id:props.id
+        // }).then((res) => {
+        //     console.log(res);
+        // }).catch((err) => {
+        //     console.log(err);
+        // });
+
     }
     return (<>
-    <Auther />
+    <Auther key={props.id} userName={props.userName} createdAt={props.createdAt} />
     <Container>
         <SubContainer>  
             {valid&&<ArrowBackIosIcon onClick={() => setCurrent((current - 1+data.length) % data.length) }/>}
@@ -95,7 +85,7 @@ export default function Card() {
             {valid&&<ArrowForwardIosIcon onClick={() => setCurrent((current + 1) % data.length) }/>}
         </SubContainer>
     </Container>
-        <LikeBtn clicked={clicked} onClick={handelLike}>Like</LikeBtn>
+    {logedIn&&<LikeBtn clicked={clicked} onClick={handelLike}>Like</LikeBtn>}
     </>
     )
 }

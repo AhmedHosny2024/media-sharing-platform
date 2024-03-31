@@ -11,3 +11,12 @@ export const ChangeToken = (state:string) => {
         });
     }
 }
+
+export const ChangeUserName = (state:string) => {
+    return (dispatch : Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.CHANGE_USERNAME,
+            payload: state,
+        });
+    }
+}

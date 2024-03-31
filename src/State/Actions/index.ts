@@ -3,6 +3,10 @@ interface Token{
     type: ActionType.CHANGE_TOKEN; 
     payload: string; 
 }
+interface UserName{
+    type: ActionType.CHANGE_USERNAME; 
+    payload: string; 
+}
 
 
-export type Action = Token;
+export type Action = Token|UserName;

@@ -6,6 +6,7 @@ export const Container = styled("div")(() => ({
     flexDirection:"row",
     justifyContent: "flex-start",
     margin: "10px 10px",    
+    width: "-webkit-fill-available",
 
 }));
 export const UserIcon = styled(Avatar)(() => ({

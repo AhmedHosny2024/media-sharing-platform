@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppsIcon from '@mui/icons-material/Apps';
 import {
     useDispatch,
@@ -10,17 +10,35 @@ import { actionsCreators } from "../../State/index";
 import { UploadButton } from './Upload/upload';
 import SignupFrom from '../Signup/signup';
 import SignInFrom from '../Signin/signin';
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import axios from '../../Server/Instance';
 
 export default function Navbar() {
     const token =useSelector((state:MainState) => state.token); 
+    const userName =useSelector((state:MainState) => state.username);
+
     const dispatch = useDispatch();
-    const { ChangeToken } = bindActionCreators(actionsCreators,dispatch);
-    ChangeToken("")
+    const { ChangeToken,ChangeUserName } = bindActionCreators(actionsCreators,dispatch);
+    ChangeToken("Abdelrazik")
+    ChangeUserName("Abdelrazik Abdelrazik")
+
     console.log(token)
 
     const GoToTop = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+    useEffect(() => {
+        GoToTop()
+
+    }, [token])
+    const SignOut = () => {
+        ChangeToken("")
+        //TODO: Add the API call to sign out
+        // axios.post("/signout").then((res) => {
+        //     console.log(res);
+        // }).catch((err) => {
+        //     console.log(err);
+        // });
     }
     return (
         <Header>
@@ -48,8 +66,9 @@ export default function Navbar() {
             <UserData>
                 <UploadButton />
                 <UserName>
-                    {token}
+                    {userName}
                 </UserName>
+                <LogoutIcon sx={{color:"white"}} onClick={SignOut}/>
             </UserData>
             }
             
