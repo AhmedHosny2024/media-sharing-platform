@@ -2,8 +2,9 @@ import { ButtonProps } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Text, Upload, VisuallyHiddenInput } from "./style";
 import { VariantType, useSnackbar } from 'notistack';
-import { PostType } from "../../types";
-import axios from '../../../Server/Instance';
+import axios from '../../../Server/formInstance';
+import { useSelector } from "react-redux";
+import { MainState } from "../../../State";
 
 interface UploadProps extends ButtonProps {
     children: React.ReactNode;
@@ -16,6 +17,9 @@ interface UploadProps extends ButtonProps {
   );
 
 export function UploadButton() {
+    const token = useSelector((state:MainState) => state.token);
+    const Id = useSelector((state:MainState) => state.id);
+    const userName = useSelector((state:MainState) => state.username);
 
     const { enqueueSnackbar } = useSnackbar();
     
@@ -24,37 +28,51 @@ export function UploadButton() {
     };
 
     const GetImage=(e:any)=>{
-        let done=false;
-        console.log(e.target.files)
-        let res:PostType[]=[];
+        let done=true;
+        const data = new FormData();
+        // console.log(e.target.files)
+        // data.append("data",e.target.files[0]);
         for (let i = 0; i < e.target?.files?.length; i++) {
-            if(e.target.files[i].type.includes("image") || e.target.files[i].type.includes("video")){
-                // create a new FileReader
-                const reader = new FileReader();
-                // read the image file as a data URL
-                reader.readAsDataURL(e.target.files[0]);
-                // set the image to the result of the reader
-                reader.onload = function () {
-                  // append all images and videos to the array
-                  res.push({type:e.target.files[i].type.includes("image") ? "image" : "video",src:reader.result as string});
-                }
+            if(e.target.files[i].type==="image/png"||e.target.files[i].type==="image/jpeg"||e.target.files[i].type==="video/mp4" ){
+                // append each file to the form data
+                data.append("data", e.target.files[i]);
                 done=true;
             }
             else {
-                Alert(`${e.target.files[i].name} not image or vedio`,"error")();
+                Alert(`${e.target.files[i].name} not image or video`,"error")();
                 return;
             }
-            // TODO: Add the API call to upload the image
-            // axios.post("/upload",{
-            //     data: e.target.files[i]
-            // }).then((res) => {
-            //     console.log(res);
-            // }).catch((err) => {
-            //     console.log(err);
-            // });
         }
-        if(done)
-            Alert(`Data uploaded successfully`,"success")();
+        if(done){
+            // set header autharization
+            const date = new Date();
+            const day = date.getDate();
+            const month = date.getMonth() + 1; // getMonth() returns a zero-based value (0-11)
+            const year = date.getFullYear();
+            const createdAt = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
+            // TODO: Add the API call to upload the image
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            axios.defaults.params = {userId:Id,createdAt:createdAt,userName:userName};
+            axios.post(`/post/upload/`,
+              data
+            ).then((res) => {
+                console.log(res);
+                if(res.status===200||res.status===201){
+                  Alert(`Data uploaded successfully`,"success")()
+                  window.location.reload();
+                }
+
+            }).catch((err) => {
+              console.log(err);
+                if(err.response.data.message instanceof Array){
+                    err.response.data.message.forEach((msg:string) => {
+                        Alert(msg,"error")();
+                    });
+                }
+                else
+                    Alert(err.response.data.message,"error")();
+            });
+        }
     }
   return (
 
@@ -66,7 +84,7 @@ export function UploadButton() {
           <Text>
             Upload
           </Text>
-        <VisuallyHiddenInput type="file" hidden accept="image/*,video/*" onChange={GetImage} multiple/>
+        <VisuallyHiddenInput type="file" hidden accept="video/mp4,image/png,image/jpeg" onChange={GetImage} multiple/>
     </UploadBtn>
   );
 }

@@ -17,7 +17,7 @@ export default function SignupFrom() {
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
-    const { ChangeToken,ChangeUserName } = bindActionCreators(actionsCreators,dispatch);
+    const { ChangeToken,ChangeUserName,ChangeId } = bindActionCreators(actionsCreators,dispatch);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -34,47 +34,53 @@ export default function SignupFrom() {
 
     function handleSubmit() {
         if(email===""){
-            Alert("Email is required","error");
-            console.log("Email is required");
+            Alert("Email is required","error")();
             return;
         }
         if(password===""){
-            console.log("Password is required");
-            Alert("Password is required","error");
+            Alert("Password is required","error")();
             return;
         }
         if(userName===""){
-            console.log("User Name is required");
-            Alert("User Name is required","error");
+            Alert("User Name is required","error")();
             return;
         }
         if(phone===""){
-            console.log("Phone is required");
-            Alert("Phone is required","error");
+            Alert("Phone is required","error")();
             return;
         }
         try {
             setLoading(true);
             // TODO: Add the API call to create a new user
-            // axios.post("/user/signup",{
-            //     email: email,
-            //     password: password,
-            //     userName: userName,
-            //     phone: phone
-            // }).then((res) => {
-            //     if(res.status === 200){
-            //         // save the token in redux
-            //         ChangeToken(res.data.token);
-            //         ChangeUserName(res.data.userName);
-            //         Alert("Account created successfully","success");
-            //         handleClose();
-            //     }
-            // }).catch((err) => {
-            //     Alert("Failed to create an account","error");
-            // });
+            axios.post("/auth/signup",{
+                email: email,
+                password: password,
+                userName: userName,
+                phone: phone
+            }).then((res) => {
+                if(res.status === 200||res.status === 201){
+                    // save the token in redux
+                    ChangeToken(res.data.access_token);
+                    ChangeUserName(res.data.userData.userName);
+                    ChangeId(res.data.userData.id);
+                    Alert("Account created successfully","success")();
+                    handleClose();
+                }
+            }).catch((err) => {
+                //check if error message is list or just a string
+                if(err.response.data.message instanceof Array){
+                    err.response.data.message.forEach((msg:string) => {
+                        Alert(msg,"error")();
+                    });
+                }
+                else
+                    {
+                        Alert(err.response.data.message,"error")();
+                    }
+            });
         }
         catch (e) {
-            Alert("Failed to create an account","error");
+            Alert("Failed to create an account","error")();
         }
         setLoading(false);
     }

@@ -11,6 +11,11 @@ export class Post {
     createdAt: Date;
     
     @Column()
+    userName: string;
+    @Column()
+    userId: number;
+
+    @Column()
     @Column('json')
     // list of images and videos uploaded by the user(just the URL)
     data: string[];

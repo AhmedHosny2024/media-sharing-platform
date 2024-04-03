@@ -25,7 +25,7 @@ const {
       database: DATABASE_NAME,
       entities: [User,Post],
       synchronize: true,
-      logging: true,
+      // logging: true,
     }),
   ],
 })

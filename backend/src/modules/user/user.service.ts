@@ -17,9 +17,15 @@ export class UserService {
     const existingUser = await this.userRepository.findOne({
       where: { email },
     });
-    console.log("in service")
+    const existingPhone = await this.userRepository.findOne({
+      where: { phone: createUserDto.phone },
+    });
+
     if (existingUser) {
-      throw new BadRequestException('Username already exists');
+      throw new BadRequestException('email already exists');
+    }
+    if (existingPhone) {
+      throw new BadRequestException('phone already exists');
     }
 
     const newUser = this.userRepository.create(createUserDto);
@@ -46,6 +52,17 @@ export class UserService {
     let query = this.userRepository
       .createQueryBuilder('user')
       .where('user.email = :email', { email });
+
+    if (includePassword) {
+      query = query.addSelect('user.password');
+    }
+
+    return query.getOne();
+  }
+  async findByPhone(phone: string, includePassword = false) {
+    let query = this.userRepository
+      .createQueryBuilder('user')
+      .where('user.phone = :phone', { phone });
 
     if (includePassword) {
       query = query.addSelect('user.password');

@@ -23,7 +23,7 @@ export default function SignInFrom() {
     };
 
     const dispatch = useDispatch();
-    const { ChangeToken,ChangeUserName } = bindActionCreators(actionsCreators,dispatch);
+    const { ChangeToken,ChangeUserName, ChangeId } = bindActionCreators(actionsCreators,dispatch);
 
     const { enqueueSnackbar } = useSnackbar();
     const Alert = (msg:string,variant: VariantType) => () => {
@@ -44,17 +44,28 @@ export default function SignInFrom() {
         try {
             setLoading(true);
             // TODO: Add the API call to sign in the user
-            // axios.post("/user/signin",{
-            //     email: email,
-            //     password: password
-            // }).then((res) => {
-            //     ChangeToken(res.data.token);
-            //     ChangeUserName(res.data.username);
-            //     Alert("Login Success","success");
-            //     handleClose();
-            // }).catch((err) => {
-            //     Alert("Check Email or password  ","error");
-            // });
+            axios.post("/auth/login",{
+                email: email,
+                password: password
+            }).then((res) => {
+                console.log("signin ",res);
+                ChangeToken(res.data.access_token);
+                ChangeUserName(res.data.userData.userName);
+                ChangeId(res.data.userData.id);
+                Alert("Login Success","success");
+                handleClose();
+            }).catch((err) => {
+                //check if error message is list or just a string
+                if(err.response.data.message instanceof Array){
+                    err.response.data.message.forEach((msg:string) => {
+                        Alert(msg,"error")();
+                    });
+                }
+                else
+                    {
+                        Alert(err.response.data.message,"error")();
+                    }
+            });
     
         } catch {
             Alert("Check Email or password  ","error");

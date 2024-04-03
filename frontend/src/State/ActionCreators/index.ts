@@ -20,3 +20,12 @@ export const ChangeUserName = (state:string) => {
         });
     }
 }
+
+export const ChangeId = (state:number) => {
+    return (dispatch : Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.CHANGE_ID,
+            payload: state,
+        });
+    }
+}

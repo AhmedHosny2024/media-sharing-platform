@@ -12,8 +12,8 @@ import SignupFrom from '../Signup/signup';
 import SignInFrom from '../Signin/signin';
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from '../../Server/Instance';
-import { IconButton } from '@mui/material';
-import { log } from 'console';
+import { Alert, IconButton } from '@mui/material';
+import { useSnackbar, VariantType } from 'notistack';
 
 export default function Navbar() {
     const token =useSelector((state:MainState) => state.token); 
@@ -29,29 +29,37 @@ export default function Navbar() {
 
 
     //TODO just for testing
-    useEffect(() => {
-        ChangeToken("Abdelrazik")
-        ChangeUserName("Abdelrazik Abdelrazik")
-    }, [])
+    // useEffect(() => {
+    //     ChangeToken("Abdelrazik")
+    //     ChangeUserName("Abdelrazik Abdelrazik")
+    // }, [])
 
     useEffect(() => {
         GoToTop()
         setLogin(true);
     }, [token,userName,login])
 
-    const SignOut = () => {
-        ChangeToken("")
-        ChangeUserName("")
-        setLogin(false);
-        console.log("Sign out")
-        console.log(token)
-        console.log(userName)
-        //TODO: Add the API call to sign out
-        // axios.post("/signout").then((res) => {
-        //     console.log(res);
-        // }).catch((err) => {
-        //     console.log(err);
-        // });
+    const { enqueueSnackbar } = useSnackbar();
+    const Alert = (msg:string,variant: VariantType) => () => {
+        enqueueSnackbar(msg, { variant,autoHideDuration: 2000 });
+    };
+
+    const SignOut = async () => {
+        axios.post("auth/logout").then((res) => {
+            ChangeToken("")
+            ChangeUserName("")
+            setLogin(false);
+        }
+        ).catch((err) => {
+            if(err.response.data.message instanceof Array){
+                err.response.data.message.forEach((msg:string) => {
+                    Alert(msg,"error")();
+                });
+            }
+            else{
+                Alert(err.response.data.message,"error")();
+            }
+        }); 
     }
     return (
         <Header>

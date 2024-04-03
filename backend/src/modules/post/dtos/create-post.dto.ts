@@ -1,10 +1,15 @@
 import { Transform } from 'class-transformer';
-import { IsDate, IsNotEmpty } from 'class-validator';
+import { IsDate, IsNotEmpty, IsString } from 'class-validator';
 import { File } from 'multer';
 
 export class CreatePostDto {
     @IsNotEmpty()
     userId: number;
+
+    @IsNotEmpty()
+    @IsString()
+    userName: string;
+    
     @IsNotEmpty()
     @IsDate()
     // transform the string to a date

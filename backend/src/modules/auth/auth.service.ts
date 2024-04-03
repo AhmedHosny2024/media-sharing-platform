@@ -13,7 +13,6 @@ export class AuthService {
         ) {}
     async validateUser(email: string, password: string): Promise<any> {
         const logininUser = await this.userService.findByEmail(email, true);
-    
         if (!logininUser) {
             throw new UnauthorizedException('Invalid username or password');
         }
@@ -44,7 +43,16 @@ export class AuthService {
 
     async signup(user: CreateUserDTO) {
         const newUser = await this.userService.create(user);
-        return newUser;
+        const payload = {
+            id: newUser.id,
+            userName: newUser.userName,
+            email: newUser.email,
+            phone: newUser.phone,
+        };
+        return {
+            userData:payload,
+            access_token: this.jwtService.sign(payload)
+        };
     }
 
     validateToken(token: string) {

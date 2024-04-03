@@ -8,7 +8,7 @@ export default function Auther(props:PostHeader) {
                 <UserIcon alt={props.userName} />
                 <UserName>{props.userName}</UserName>
             </UserInfo>
-            <PostDate>Posted on {props.createdAt}</PostDate>
+            <PostDate>Posted on {props.createdAt.split("T")[0]}</PostDate>
         </Container>
     )
 }

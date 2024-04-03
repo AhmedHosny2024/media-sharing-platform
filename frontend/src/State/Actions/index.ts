@@ -8,5 +8,9 @@ interface UserName{
     payload: string; 
 }
 
+interface Id{
+    type: ActionType.CHANGE_ID; 
+    payload: number; 
+}
 
-export type Action = Token|UserName;
+export type Action = Token|UserName|Id;

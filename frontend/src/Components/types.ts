@@ -1,14 +1,3 @@
-export type PostType = {
-    type: "image" | "video";
-    src: string;
-};
-export type Post = {
-    id: number;
-    userName: string;
-    data: PostType[];
-    createdAt: string;
-    like: boolean;
-};
 export type User={
     name:string;
     email:string;
@@ -19,3 +8,15 @@ export type PostHeader={
     userName:string;
     createdAt:string;
 }
+
+export type PostType={
+    url:string;
+    type:string;
+}
+export type Post = {
+    id: number;
+    userName: string;
+    data: PostType[];
+    createdAt: string;
+    likedBy: User[];
+};

@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post, Query, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, Post, Query, Res, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PostService } from './post.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import * as path from 'path';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { Post as PostEntity } from 'src/entities/post.entity';
 import { LikePostDto } from './dtos/like-post.dto';
@@ -14,15 +15,16 @@ export class PostController {
     constructor(private postService: PostService) {}
 
     @UseInterceptors(
+        // who 
         FilesInterceptor('data', 20, {
         storage: diskStorage({
             destination: './uploads',
             filename: (req, file, cb) => {
-            const randomName = Array(32)
-                .fill(null)
-                .map(() => Math.round(Math.random() * 16).toString(16))
-                .join('');
-            return cb(null, `${randomName}${extname(file.originalname)}`);
+                const randomName = Array(32)
+                    .fill(null)
+                    .map(() => Math.round(Math.random() * 16).toString(16))
+                    .join('');
+                return cb(null, `${randomName}${extname(file.originalname)}`);
             },
         }),
         }),
@@ -31,14 +33,25 @@ export class PostController {
     @UseGuards(JwtAuthGuard)
     @Post('upload')
     async uploadFiles(@UploadedFiles() files,@Query() postDto: CreatePostDto){
-        const fileUrls = files.map(file => `${file.path}`);
-        const post = await this.postService.createPost({
+        if (!files || files.length === 0) {
+            throw new BadRequestException('No files were uploaded.');
+        }
+        const fileData = files.map(file => ({
+            url: `${file.path}`,
+            type: file.mimetype
+        }));        const post = await this.postService.createPost({
           userId: postDto.userId,
           createdAt: postDto.createdAt,
-          data: fileUrls,
+          userName: postDto.userName,
+          data: fileData,
         });
 
         return { post };
+    }
+    //get the image or video
+    @Get('uploads/:fileId')
+    async serveFile(@Param('fileId') fileId, @Res() res): Promise<any> {
+        res.sendFile(fileId, { root: './uploads' });
     }
 
     @Get()
