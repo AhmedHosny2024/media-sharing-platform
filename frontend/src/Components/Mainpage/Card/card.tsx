@@ -14,6 +14,8 @@ export default function Card(props:Post) {
     const [current, setCurrent] = useState(0);
     const [maxImagesHeight, setMaxImagesHeight] = useState(350);
     const [maxImageWidth, setMaxImagesWidth] = useState(350);
+    const minHeight = 100;
+    const minWidth = 100;
     const postMediaRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const {data} = props;
@@ -68,16 +70,16 @@ export default function Card(props:Post) {
                 const maxValue = Math.min(maxImagesHeight, img.height);
                 const postWidth = postMediaRef?.current?.offsetWidth || 0;
                 let newHeight = maxValue;
-                if (maxImagesHeight > img.height && img.width > postWidth) {
+                if (maxImagesHeight > img.height && img.width > postWidth && postWidth>0 &&img.height > minHeight) {
                     newHeight= img.height * (postWidth / img.width);
                 }
                 return newHeight;
                 });
                 setMaxImagesWidth((maxImagesWidth) => {
-                const maxValue = Math.min(maxImagesWidth, img.width);
+                const maxValue = Math.min(maxImagesWidth, img.width );
                 const postWidth = postMediaRef?.current?.offsetWidth || 0;
                 let newWidth = maxValue;
-                if (maxImagesWidth > img.width && img.width > postWidth) {
+                if (maxImagesWidth > img.width && img.width > postWidth && postWidth>0&&img.width > minWidth) {
                     newWidth= img.width * (postWidth / img.width);
                 }
                 return newWidth;
@@ -94,7 +96,7 @@ export default function Card(props:Post) {
             const maxValue = Math.min(maxImagesHeight, video.videoHeight);
             const postWidth = postMediaRef?.current?.offsetWidth || 0;
             let newHeight = maxValue;
-            if (maxImagesHeight > video.videoHeight && video.videoWidth > postWidth) {
+            if (maxImagesHeight > video.videoHeight && video.videoWidth > postWidth &&postWidth>0&& video.videoHeight > minHeight) {
                 newHeight= video.videoHeight * (postWidth / video.videoWidth);
             }
             return newHeight;
@@ -103,7 +105,7 @@ export default function Card(props:Post) {
             const maxValue = Math.min(maxImagesWidth, video.videoWidth);
             const postWidth = postMediaRef?.current?.offsetWidth || 0;
             let newWidth = maxValue;
-            if (maxImagesWidth > video.videoWidth && video.videoWidth > postWidth) {
+            if (maxImagesWidth > video.videoWidth && video.videoWidth > postWidth &&postWidth>0&& video.videoWidth > minWidth) {
                 newWidth= video.videoWidth * (postWidth / video.videoWidth);
             }
             return newWidth;
@@ -135,7 +137,7 @@ export default function Card(props:Post) {
           );
       } else {
           return (
-              <Video ref={videoRef} style={{ height: maxImagesHeight, margin: "0px 2px", width: maxImageWidth }}  controls autoPlay>
+              <Video ref={videoRef} style={{ height: maxImagesHeight, margin: "0px 2px", width: maxImageWidth }}  controls autoPlay muted>
                   <source src={process.env.REACT_APP_BASE_URL+data[current].url} type={"video/mp4"} style={{ height: "inherit" }} />
               </Video>
           );
