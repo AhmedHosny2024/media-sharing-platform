@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Pressable, StyleSheet, View,Dimensions, Image, } from "react-native";
+import React, {  useState } from "react";
+import { Pressable, StyleSheet, View,Dimensions, Image } from "react-native";
 import { Video } from 'expo-av';
 import {BASE_URL} from "@env";
 
-
+/**
+ * 
+ * @param {data} data to be displayed in the post {type,url}
+ * @returns  SinglePost component with the image or the video
+ */
 export const SinglePost = ({data}) => {
-
     const [play,setPlay] = useState(false);
     const {media,mesiaImage,mediaVideo,poster} = styles;
     return (
@@ -16,7 +19,6 @@ export const SinglePost = ({data}) => {
             <View style={[media]}>
                 <Pressable onPress={()=>setPlay(!play)} >
                     <Video
-                        // ref={videoRef}
                         source={{uri:BASE_URL+"/post/"+data.url.replace(/\\/g, "/")} } 
                         shouldPlay={play}
                         isLooping

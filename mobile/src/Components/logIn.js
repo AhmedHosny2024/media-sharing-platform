@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Pressable, View,Text, StyleSheet,TextInput ,TouchableWithoutFeedback,Keyboard} from "react-native";
+import { Modal, Pressable, View,Text, StyleSheet,TextInput ,TouchableWithoutFeedback,Keyboard,Alert} from "react-native";
 import { Formik } from "formik";
 import { Ionicons } from '@expo/vector-icons';
 import * as yup from "yup";
@@ -8,7 +8,11 @@ import { useDispatch } from "react-redux";
 import { changeToken,changeName,changeId,changeRefresh} from "../Redux/slice/userSlicer";
 import { useSelector } from "react-redux";
 
-
+/**
+ * @constant (validationSchema) - Validation schema for the form
+ * @function (handelSubmit) - Function to handle the submit of the form and send the data to the server
+ * @retrun (SignUp) - SignUp button to open the modal for sign up form
+ */
 const validationSchema = yup.object({
     email: yup.string().email().required(),
     password: yup.string().required().min(8),
@@ -20,12 +24,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const {botton,moddelToggle,container,input,actions,actionsBtn,error} = styles;
     const handelSubmit = (values) => {
-        console.log(values);
         if(values.email !== "" && values.password !== ""){
-            //TODO : send request to server and get 
-            // userName
-            // id
-            // access_token
             axios.post("/auth/login",{
                 email: values.email,
                 password: values.password,
@@ -41,6 +40,7 @@ const Login = () => {
                 //check if error message is list or just a string
                 setErrorMsg(err.response.data.message);
                 console.log(err.response.data.message);
+                Alert.alert("Error", err.response.data.message);
             });
             setVisible(false);
         }

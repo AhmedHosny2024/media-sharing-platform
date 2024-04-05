@@ -3,11 +3,14 @@ import Post from "./post/post";
 import { getPosts } from "../Server/getPosts";
 import { useSelector } from "react-redux";
 
+/**
+ * 
+ * @returns Main page with all the posts
+ */
 const MainPage = () => {
     const [data, setData] = useState();
     const refresh = useSelector(state => state.user.refresh); 
     const [errorMsg,posts]=getPosts(refresh);
-    console.log("heer:",refresh);
     useEffect(() => {
         setData(posts)
     },[posts,refresh]);

@@ -4,23 +4,23 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from "../Server/intsance";
-// import axios from "axios";
 import Login from "./logIn";
 import SignUp from "./signUp";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { changeToken,changeName,changeId,changeRefresh} from "../Redux/slice/userSlicer";
 
-
+/**
+ * @function (Logout) - Function to logout the user
+ * @returns Navbar with the MSP logo and the login and sign up buttons
+ */
 const Navbar = () => {
     // StatusBar.setBarStyle('light-content', true);
-    //TODO:GET the name from the redux store
     const name=useSelector(state => state.user.userName);
     const token=useSelector(state => state.user.token);
     const dispatch = useDispatch();
     const valid = token==="" ;
-    const {nav,button,signs,User,msp} = styles;
-    const [errorMsg, setErrorMsg] = useState(null);
+    const {nav,signs,User,msp} = styles;
     const refresh = useSelector(state => state.user.refresh);
     const Logout =async () => {
         // TODO: send request to server to logout
@@ -33,7 +33,6 @@ const Navbar = () => {
             },
         })
         .then((res) => {
-            console.log(res.data);
             dispatch(changeId(-1));
             dispatch(changeToken(""));
             dispatch(changeName(""));
@@ -43,15 +42,6 @@ const Navbar = () => {
             console.error(err);
         });
     }
-    // useEffect(() => {
-    //     if(token===""){
-    //         changeId("");
-    //         changeName("");
-    //         changeToken("");
-    //     }
-    // }
-    // , [token]);
-
     return (
         <LinearGradient colors={['#ff2c00', '#9000c3']} start={{x: 0, y: 0}} end={{x: 1, y: 1}} style={nav}>
             <View style={signs}>
@@ -95,17 +85,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-    },
-    button: {
-        justifyContent: "center",
-        alignItems: "center",
-        cursor: "pointer",
-        borderRadius: 5,
-        backgroundColor: "white",
-        color:"#e82326",
-        border: "none",
-        margin: 12,
-        padding: 5,
     },
     User:{
         color: "white",
