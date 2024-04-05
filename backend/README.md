@@ -1,4 +1,4 @@
-# EPL Reservation System API
+# Media Sharing Platform
 
 ## Overview
 Media Sharing Platform to share vedios and images between users  
