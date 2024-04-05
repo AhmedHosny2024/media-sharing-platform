@@ -35,13 +35,7 @@ MSP is a platform to share vedios and images by users
 <ol>
 
 <li>
-<a href="https://reactjs.org/docs/getting-started.html">React</a> 
-</li>
-<li>
-<a href="https://mui.com/material-ui/getting-started/overview/">MUI</a>
-</li>
-<li>
-<a href="https://eslint.org/">eslint</a>
+<a href="https://reactnative.dev/">React-native</a> 
 </li>
 <li>
 <a href="https://redux-toolkit.js.org/">Redux-toolkit</a>
