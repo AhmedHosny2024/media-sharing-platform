@@ -126,7 +126,7 @@ npm start
 </td>
 </tr>
 <tr>
-<td> Home </td>
+<td> Guest Home </td>
 <td>
 
 <img align="center" src="Readme Media\home.png" alt="logo">
@@ -138,7 +138,7 @@ npm start
 </tr>
 </tr>
 <tr>
-<td> Home </td>
+<td> User Home </td>
 <td>
 
 <img align="center" src="Readme Media\userHome.png" alt="logo">
