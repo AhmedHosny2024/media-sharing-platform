@@ -23,7 +23,6 @@ export class AuthController {
     
     @Post('signup')
     async signup(@Body() user: CreateUserDTO) {
-        console.log(user);
         return this.authService.signup(user);
     }
 

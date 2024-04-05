@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/entities/post.entity';
 import { Repository } from 'typeorm';
@@ -17,7 +17,7 @@ export class PostService {
     async createPost(postDto:CreatePostDto): Promise<Post> {
         const user = await this.userService.findOne(postDto.userId);
         if (!user) {
-          throw new Error('User not found');
+          throw new BadRequestException('User not found');
         }
         const post:Post = this.postRepository.create(postDto);
         post.user = user; 
@@ -45,11 +45,11 @@ export class PostService {
       const user = await this.userService.findOne(userId);
 
       if (!post || !user) {
-        throw new Error('Post or user not found');
+        throw new BadRequestException('Post or user not found');
       }
 
       if (post.likedBy.some(u => u.id === user.id)) {
-        throw new Error('User has already liked this post');
+        throw new BadRequestException('User has already liked this post');
       }
       
       // await this.userService.update(user.id, user);
@@ -70,11 +70,11 @@ export class PostService {
       const user = await this.userService.findOne(userId);
   
       if (!post || !user) {
-        throw new Error('Post or user not found');
+        throw new BadRequestException('Post or user not found');
       }
   
       if (!post.likedBy.some(u => u.id === user.id)) {
-        throw new Error('User has not liked this post');
+        throw new BadRequestException('User has not liked this post');
       }
 
       await this.postRepository.manager.transaction(async transactionalEntityManager => {

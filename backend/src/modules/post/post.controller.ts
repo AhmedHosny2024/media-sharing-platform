@@ -15,7 +15,6 @@ export class PostController {
     constructor(private postService: PostService) {}
 
     @UseInterceptors(
-        // who 
         FilesInterceptor('data', 20, {
         storage: diskStorage({
             destination: './uploads',
@@ -23,7 +22,7 @@ export class PostController {
                 const randomName = Array(32)
                     .fill(null)
                     .map(() => Math.round(Math.random() * 16).toString(16))
-                    .join('');
+                    .join(''); 
                 return cb(null, `${randomName}${extname(file.originalname)}`);
             },
         }),
@@ -34,6 +33,7 @@ export class PostController {
     @Post('upload')
     async uploadFiles(@UploadedFiles() files,@Query() postDto: CreatePostDto){
         if (!files || files.length === 0) {
+            console.log(files, postDto);
             throw new BadRequestException('No files were uploaded.');
         }
         const fileData = files.map(file => ({

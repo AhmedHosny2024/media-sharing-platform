@@ -30,7 +30,7 @@ export function UploadButton() {
     const GetImage=(e:any)=>{
         let done=true;
         const data = new FormData();
-        // console.log(e.target.files)
+        console.log(e.target.files)
         // data.append("data",e.target.files[0]);
         for (let i = 0; i < e.target?.files?.length; i++) {
             if(e.target.files[i].type==="image/png"||e.target.files[i].type==="image/jpeg"||e.target.files[i].type==="video/mp4" ){

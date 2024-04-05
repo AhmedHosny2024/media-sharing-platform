@@ -7,8 +7,7 @@ import { Post } from "../../types";
 import { useSelector } from "react-redux";
 import { MainState } from "../../../State";
 import axios from '../../../Server/Instance';
-import { tr } from "date-fns/locale";
-import { Avatar, Box, Skeleton } from "@mui/material";
+import {  Skeleton } from "@mui/material";
 
 export default function Card(props:Post) {
     const [current, setCurrent] = useState(0);
@@ -37,7 +36,7 @@ export default function Card(props:Post) {
             userId:userId
         }).then((res) => {
             if(res.status===200||res.status===201){
-                console.log(res);
+                // console.log(res);
             }
         }).catch((err) => {
             console.log(err);
@@ -49,7 +48,7 @@ export default function Card(props:Post) {
             userId:userId
         }).then((res) => {
             if(res.status===200||res.status===201){
-                console.log(res);
+                // console.log(res);
             }
         }).catch((err) => {
             console.log(err);
