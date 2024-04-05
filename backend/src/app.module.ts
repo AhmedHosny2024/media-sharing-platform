@@ -5,10 +5,8 @@ import { DatabaseModule } from './database/database.module';
 import { EnvModule } from './env/env.mdoule';
 import { PostModule } from './modules/post/post.module';
 import { MulterModule } from '@nestjs/platform-express';
-// import { LikeModule } from './modules/like/like.module';
 
 @Module({
-  
   imports: [
       EnvModule,
       DatabaseModule,
@@ -18,7 +16,6 @@ import { MulterModule } from '@nestjs/platform-express';
       MulterModule.register({
         dest: './uploads',
       }),
-      // LikeModule,
     ],
   controllers: [],
   providers: [],

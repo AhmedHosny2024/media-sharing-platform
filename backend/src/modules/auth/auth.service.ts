@@ -16,7 +16,6 @@ export class AuthService {
         if (!logininUser) {
             throw new UnauthorizedException('Invalid username or password');
         }
-    
         const correct_password = await comparePasswords(
             password,
             logininUser.password,
@@ -24,7 +23,6 @@ export class AuthService {
         if (!correct_password) {
             throw new UnauthorizedException('Invalid username or password');
         }
-
         return logininUser;
     }
 

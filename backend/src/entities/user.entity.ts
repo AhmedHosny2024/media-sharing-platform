@@ -1,9 +1,7 @@
 import { encryptPassword } from '../shared/encryption.util';
 import { BeforeInsert, BeforeUpdate, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Post } from './post.entity';
-// import { Like } from './like-post.entity';
 
-// const encryptPassword = require('../shared/encryption.util');
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()

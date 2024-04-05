@@ -3,10 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 import { User } from '../entities/user.entity';
 import { Post } from 'src/entities/post.entity';
-// import { Like } from 'src/entities/like-post.entity';
 
 config(); // This loads the .env file
 
+/**
+ * Database module
+ */
 const {
   DATABASE_HOST,
   DATABASE_PORT,
@@ -25,7 +27,7 @@ const {
       database: DATABASE_NAME,
       entities: [User,Post],
       synchronize: true,
-      // logging: true,
+      // logging: true, // Enable this to see the SQL queries just for testing
     }),
   ],
 })

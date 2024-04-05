@@ -28,7 +28,6 @@ export class PostController {
         }),
         }),
     )
-
     @UseGuards(JwtAuthGuard)
     @Post('upload')
     async uploadFiles(@UploadedFiles() files,@Query() postDto: CreatePostDto){
