@@ -149,6 +149,20 @@ npm start
 </td>
 </tr>
 <tr>
+<tr>
+<td> Responsive </td>
+<td>
+
+<img align="center" src="Readme Media\responsive.png" alt="logo">
+<img align="center" src="Readme Media\responsive2.png" alt="logo">
+<img align="center" src="Readme Media\mobile.png" alt="logo">
+<img align="center" src="Readme Media\mobile2.png" alt="logo">
+</td>
+<td>
+<p>the website is responsive for all screens and can run on mobile</p>
+</td>
+</tr>
+<tr>
 </table>
 
 <hr style="background-color: #4b4c60"></hr>
