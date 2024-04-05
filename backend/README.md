@@ -4,7 +4,7 @@
 Media Sharing Platform to share vedios and images between users  
 
 ## ER Diagram
-<img src="Readme Media/ER" alt="ER Diagram">
+<img src="Readme Media/ER.png" alt="ER Diagram">
 
 ## Relations
 - each user has many posts  (are one to many realation) 
