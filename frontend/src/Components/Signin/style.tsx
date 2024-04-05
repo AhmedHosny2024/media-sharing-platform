@@ -61,3 +61,23 @@ export const SecondContainer = styled(Box)(({ theme }) => ({
     width:"100%",
   },
 }));
+
+export const SignInBtn= styled(Button)(() => ({
+  width: 120,
+  height: 25,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  cursor: "pointer",
+  borderRadius: 25,
+  backgroundColor: "white",
+  color:"#e82326",
+  border: "none",
+  fontSize: 14,
+  fontWeight: 500,
+  margin: "2px",
+  "&:hover": {
+      background: "#e82326",
+      color: "white",
+  },
+}));

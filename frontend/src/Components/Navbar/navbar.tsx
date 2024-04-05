@@ -12,9 +12,14 @@ import SignupFrom from '../Signup/signup';
 import SignInFrom from '../Signin/signin';
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from '../../Server/Instance';
-import { Alert, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { useSnackbar, VariantType } from 'notistack';
 
+/**
+ * @description Navbar component
+ * @function (SignOut) - function to handle sign out
+ * @returns Navbar component
+ */
 export default function Navbar() {
     const token =useSelector((state:MainState) => state.token); 
     const userName =useSelector((state:MainState) => state.username);
@@ -26,13 +31,6 @@ export default function Navbar() {
     const GoToTop = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
-
-
-    //TODO just for testing
-    // useEffect(() => {
-    //     ChangeToken("Abdelrazik")
-    //     ChangeUserName("Abdelrazik Abdelrazik")
-    // }, [])
 
     useEffect(() => {
         GoToTop()
@@ -75,13 +73,7 @@ export default function Navbar() {
             {token===""?
             <SignContainer>
                 <SignupFrom/>
-                <SignUp onClick={()=>document.getElementById("signup")?.click()}>
-                    Sign Up
-                </SignUp>
                 <SignInFrom />
-                <SignUp onClick={()=>document.getElementById("signin")?.click()}>
-                    Log in
-                </SignUp>
             </SignContainer>
             :
             <UserData>

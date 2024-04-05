@@ -61,6 +61,7 @@ export const LikeBtn = styled("button")<any>(({clicked}) => ({
 }));
 
 export const Container = styled("div")(({theme}) => ({
+    width: "-webkit-fill-available",
     [theme.breakpoints.down('sm')]: {
         display: 'flex',
         flexDirection: 'column',

@@ -8,8 +8,17 @@ import { useSelector } from "react-redux";
 import { MainState } from "../../../State";
 import axios from '../../../Server/Instance';
 import {  Skeleton } from "@mui/material";
-
-export default function Card(props:Post) {
+type postProps = {
+    post:Post
+}
+/**
+ * 
+ * @param props - Post{data:PostData[],id:string,likedBy:PostLikedBy[],userName:string,createdAt:string}
+ * @function handelLike - function to handle like button
+ * @function GetHeightAndWidth - function to get the height and width of the media to make all media in the same post have same dimentions
+ * @returns 
+ */
+export default function Card(props:postProps) {
     const [current, setCurrent] = useState(0);
     const [maxImagesHeight, setMaxImagesHeight] = useState(350);
     const [maxImageWidth, setMaxImagesWidth] = useState(350);
@@ -17,11 +26,11 @@ export default function Card(props:Post) {
     const minWidth = 100;
     const postMediaRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const {data} = props;
-    const {id} = props;
+    const {data} = props.post;
+    const {id} = props.post;
     const valid =data.length>1;
     const userId = useSelector((state:MainState) => state.id);
-    const [clicked, setClicked] = useState(props.likedBy.some(user => user.id === userId ));
+    const [clicked, setClicked] = useState(props.post.likedBy.some(user => user.id === userId ));
     const token =useSelector((state:MainState) => state.token); 
     const logedIn = token!=="";
 
@@ -145,7 +154,7 @@ export default function Card(props:Post) {
  
     return (
     <CardContainer >
-    <Auther key={props.id} userName={props.userName} createdAt={props.createdAt} />
+    <Auther key={props.post.id} userName={props.post.userName} createdAt={props.post.createdAt} />
     <Container>
         <SubContainer>  
             {valid&&<ArrowBackIosIcon onClick={() => setCurrent((current - 1+data.length) % data.length) }/>}

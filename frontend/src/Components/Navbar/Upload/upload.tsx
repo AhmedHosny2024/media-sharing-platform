@@ -15,7 +15,10 @@ interface UploadProps extends ButtonProps {
       {children}
     </Upload>
   );
-
+/**
+ * @function (GetImage) - function to get image and send it to the server
+ * @returns Upload button component
+ */
 export function UploadButton() {
     const token = useSelector((state:MainState) => state.token);
     const Id = useSelector((state:MainState) => state.id);
@@ -30,8 +33,6 @@ export function UploadButton() {
     const GetImage=(e:any)=>{
         let done=true;
         const data = new FormData();
-        console.log(e.target.files)
-        // data.append("data",e.target.files[0]);
         for (let i = 0; i < e.target?.files?.length; i++) {
             if(e.target.files[i].type==="image/png"||e.target.files[i].type==="image/jpeg"||e.target.files[i].type==="video/mp4" ){
                 // append each file to the form data
@@ -63,7 +64,6 @@ export function UploadButton() {
                 }
 
             }).catch((err) => {
-              console.log(err);
                 if(err.response.data.message instanceof Array){
                     err.response.data.message.forEach((msg:string) => {
                         Alert(msg,"error")();

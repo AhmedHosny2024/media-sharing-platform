@@ -1,14 +1,22 @@
 import { useSnackbar, VariantType } from "notistack";
 import {  useState } from "react";
-import { Container, Header, InputBoxContainer, SecondContainer, Style, SubmitBtn } from "./style";
-import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Modal, Typography } from "@mui/material";
+import { Container, Header, InputBoxContainer, SecondContainer, SignUpBtn, Style, SubmitBtn } from "./style";
+import { Box, FormControl, IconButton, Input, InputAdornment, InputLabel, Modal, Typography } from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from '../../Server/Instance';
 import { useDispatch } from "react-redux";
 import {bindActionCreators} from 'redux';
 import { actionsCreators } from "../../State/index";
-
+/**
+ * @description Signup form component
+ * @function (handelChangePhone) - function to handle phone input
+ * @function (handleSubmit) - function to handle submit button
+ * @function (handleOpen) - function to handle open modal
+ * @function (handleClose) - function to handle close modal
+ * @function (Alert) - function to handle alert message
+ * @returns  Signup form component
+ */
 export default function SignupFrom() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -51,7 +59,6 @@ export default function SignupFrom() {
         }
         try {
             setLoading(true);
-            // TODO: Add the API call to create a new user
             axios.post("/auth/signup",{
                 email: email,
                 password: password,
@@ -59,7 +66,6 @@ export default function SignupFrom() {
                 phone: phone
             }).then((res) => {
                 if(res.status === 200||res.status === 201){
-                    // save the token in redux
                     ChangeToken(res.data.access_token);
                     ChangeUserName(res.data.userData.userName);
                     ChangeId(res.data.userData.id);
@@ -67,7 +73,6 @@ export default function SignupFrom() {
                     handleClose();
                 }
             }).catch((err) => {
-                //check if error message is list or just a string
                 if(err.response.data.message instanceof Array){
                     err.response.data.message.forEach((msg:string) => {
                         Alert(msg,"error")();
@@ -99,9 +104,10 @@ export default function SignupFrom() {
             setPhone("");
         }
     }
+
     return (
     <>
-        <Button onClick={handleOpen} sx={{display:"none"}} id="signup"></Button>
+        <SignUpBtn onClick={handleOpen}  id="signup">Sign Up</SignUpBtn>
         <Modal
             open={open}
             onClose={handleClose}

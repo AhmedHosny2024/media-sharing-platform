@@ -1,6 +1,11 @@
 import { PostHeader } from "../../../types";
 import { PostDate,UserIcon, UserInfo, UserName ,Container} from "./style";
 
+/**
+ * 
+ * @param props - PostHeader{userName:string,createdAt:string}
+ * @returns 
+ */
 export default function Auther(props:PostHeader) {
     return (
         <Container>

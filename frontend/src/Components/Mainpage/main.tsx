@@ -3,10 +3,13 @@ import { Container } from "./style";
 import axios from '.././../Server/Instance';
 import { useEffect, useState } from "react";
 import { Post } from "../types";
+/**
+ * @description Main page component
+ * @returns Main page component
+ */
 export default function Mainpage() {
     const [data, setData] = useState<Post[]>([]);
     useEffect(() => {
-        //TODO: Add the API call to get the posts
         axios.get('/post').then((res) => {
             setData(res.data);
         }).catch((err) => {
@@ -18,7 +21,7 @@ export default function Mainpage() {
         <Container>
             {
                 data.map((post:Post) => {
-                    return <Card key={post.id} data={post.data} id={post.id} likedBy={post.likedBy} userName={post.userName} createdAt={post.createdAt}/>
+                    return <Card key={post.id} post={post}/>
                 })
             }
         </Container>

@@ -1,14 +1,21 @@
 import { useSnackbar, VariantType } from "notistack";
 import {  useState } from "react";
-import { Container, Header, InputBoxContainer, SecondContainer, Style, SubmitBtn } from "./style";
-import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Modal, Typography } from "@mui/material";
+import { Container, Header, InputBoxContainer, SecondContainer, SignInBtn, Style, SubmitBtn } from "./style";
+import { Box, FormControl, IconButton, Input, InputAdornment, InputLabel, Modal, Typography } from "@mui/material";
 import AppsIcon from '@mui/icons-material/Apps';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from '../../Server/Instance';
 import { useDispatch } from "react-redux";
 import {bindActionCreators} from 'redux';
 import { actionsCreators } from "../../State/index";
-
+/**
+ * @description Log In form component
+ * @function (handleSubmit) - function to handle submit button
+ * @function (handleOpen) - function to handle open modal
+ * @function (handleClose) - function to handle close modal
+ * @function (Alert) - function to handle alert message
+ * @returns Log In form component
+ */
 export default function SignInFrom() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -81,7 +88,7 @@ export default function SignInFrom() {
 
     return (
     <>
-        <Button onClick={handleOpen} sx={{display:"none"}} id="signin"></Button>
+        <SignInBtn onClick={handleOpen} id="signin">Logn In</SignInBtn>
         <Modal
             open={open}
             onClose={handleClose}
