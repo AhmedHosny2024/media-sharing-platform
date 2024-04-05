@@ -121,7 +121,7 @@ npm start
 <td>
 
 <img align="center" src="Readme Media\camera.png" alt="logo">
-<img align="center" src="Readme Media\camera2.png" alt="logo">
+<img align="center" src="Readme Media\camer2.png" alt="logo">
 </td>
 <td>
 
