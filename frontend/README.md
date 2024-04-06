@@ -172,11 +172,10 @@ npm start
 <table align="left;">
 <tr>
 <th>Video</th>
-<th>Content</th>
 </tr>
 <tr>
 <td  width="83.5%">
-<video src="Readme Media\demo.mkv"   >
+<video src="Readme Media\demo.mp4"   >
 </video> 
 </td>
 </table>
