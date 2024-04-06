@@ -46,7 +46,9 @@ export default function Navbar() {
         axios.post("auth/logout").then((res) => {
             ChangeToken("")
             ChangeUserName("")
-            setLogin(false);
+            setLogin(false);           
+        }).then(() => {
+            window.location.reload();
         }
         ).catch((err) => {
             if(err.response.data.message instanceof Array){

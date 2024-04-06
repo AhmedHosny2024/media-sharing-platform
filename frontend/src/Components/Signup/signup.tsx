@@ -64,13 +64,14 @@ export default function SignupFrom() {
                 password: password,
                 userName: userName,
                 phone: phone
-            }).then((res) => {
+            }).then(async (res) => {
                 if(res.status === 200||res.status === 201){
-                    ChangeToken(res.data.access_token);
-                    ChangeUserName(res.data.userData.userName);
-                    ChangeId(res.data.userData.id);
-                    Alert("Account created successfully","success")();
-                    handleClose();
+                    await ChangeToken(res.data.access_token);
+                    await ChangeUserName(res.data.userData.userName);
+                    await ChangeId(res.data.userData.id);
+                    await Alert("Account created successfully","success")();
+                    await handleClose();
+                    // window.location.reload();
                 }
             }).catch((err) => {
                 if(err.response.data.message instanceof Array){

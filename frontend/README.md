@@ -22,6 +22,7 @@
 - <a href ="#about"> 📙 Overview</a>
 - <a href ="#started"> 💻 Get Started</a>
 - <a href ="#features"> 🔍 Features</a>
+- <a href ="#video"> 📽  Demo</a>
 - <a href ="#contributors"> ✨ Contributors</a>
 <hr style="background-color: #4b4c60"></hr>
 
@@ -165,6 +166,20 @@ npm start
 <tr>
 </table>
 
+<hr style="background-color: #4b4c60"></hr>
+## <img  align= center width= 70px height =70px src="https://img.genial.ly/5f91608064ad990c6ee12237/bd7195a3-a8bb-494b-8a6d-af48dd4deb4b.gif?genial&1643587200063"> Demo <a id ="video"></a>
+
+<table align="left;">
+<tr>
+<th>Video</th>
+<th>Content</th>
+</tr>
+<tr>
+<td  width="83.5%">
+<video src="Readme Media\demo.mkv"   >
+</video> 
+</td>
+</table>
 <hr style="background-color: #4b4c60"></hr>
 
 ## <img  align="center" width= 70px height =55px src="https://media0.giphy.com/media/Xy702eMOiGGPzk4Zkd/giphy.gif?cid=ecf05e475vmf48k83bvzye3w2m2xl03iyem3tkuw2krpkb7k&rid=giphy.gif&ct=s"> Contributors <a id ="contributors"></a>

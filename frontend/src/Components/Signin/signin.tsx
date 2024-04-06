@@ -54,13 +54,14 @@ export default function SignInFrom() {
             axios.post("/auth/login",{
                 email: email,
                 password: password
-            }).then((res) => {
+            }).then(async (res) => {
                 console.log("signin ",res);
-                ChangeToken(res.data.access_token);
-                ChangeUserName(res.data.userData.userName);
-                ChangeId(res.data.userData.id);
-                Alert("Login Success","success");
+                await ChangeToken(res.data.access_token);
+                await ChangeUserName(res.data.userData.userName);
+                await ChangeId(res.data.userData.id);
+                await Alert("Login Success","success");
                 handleClose();
+                // window.location.reload();
             }).catch((err) => {
                 //check if error message is list or just a string
                 if(err.response.data.message instanceof Array){
