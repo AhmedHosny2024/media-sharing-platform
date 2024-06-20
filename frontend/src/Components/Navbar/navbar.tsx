@@ -47,8 +47,9 @@ export default function Navbar() {
             ChangeToken("")
             ChangeUserName("")
             setLogin(false);           
-        }).then(() => {
-            window.location.reload();
+        })
+        .then(() => {
+            // window.location.reload();
         }
         ).catch((err) => {
             if(err.response.data.message instanceof Array){

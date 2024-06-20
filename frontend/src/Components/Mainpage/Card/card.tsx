@@ -37,6 +37,10 @@ export default function Card(props:postProps) {
     const[loading,setLoading] = useState(true);
 
 
+    useEffect(()=>{
+      setClicked(props.post.likedBy.some(user => user.id === userId ));
+    },[token,userId])
+
     const handelLike = () => {
       //TODO: Add the API call to like the post
       if(!clicked){

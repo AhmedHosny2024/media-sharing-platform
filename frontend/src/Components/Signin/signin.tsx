@@ -62,7 +62,8 @@ export default function SignInFrom() {
                 await Alert("Login Success","success");
                 handleClose();
                 // window.location.reload();
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 //check if error message is list or just a string
                 if(err.response.data.message instanceof Array){
                     err.response.data.message.forEach((msg:string) => {
